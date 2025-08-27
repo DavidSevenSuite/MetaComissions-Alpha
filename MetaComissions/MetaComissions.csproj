@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\ILMerge.3.0.41\build\ILMerge.props" Condition="Exists('..\packages\ILMerge.3.0.41\build\ILMerge.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -272,27 +271,5 @@
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
-  </Target>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\ILMerge.3.0.41\build\ILMerge.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILMerge.3.0.41\build\ILMerge.props'))" />
-  </Target>
-  <Target Name="ILMerge" AfterTargets="Build">
-    <PropertyGroup>
-      <MergedOutputDirectory>$(TargetDir)Merged\</MergedOutputDirectory>
-      <MergedOutputFile>$(MergedOutputDirectory)$(TargetName).exe</MergedOutputFile>
-    </PropertyGroup>
-    <MakeDir Directories="$(MergedOutputDirectory)" Condition="!Exists('$(MergedOutputDirectory)')" />
-    <ItemGroup>
-      <MergeAssemblies Include="$(TargetPath)" />
-      <MergeAssemblies Include="$(TargetDir)*.dll" Exclude="$(TargetDir)MetaComissions.dll;&#xA;                                $(TargetDir)System.*;&#xA;                                $(TargetDir)Microsoft.*;&#xA;                                $(TargetDir)PresentationCore.dll;&#xA;                                $(TargetDir)PresentationFramework.dll;&#xA;                                $(TargetDir)WindowsBase.dll;&#xA;                                $(TargetDir)EnvDTE*.dll;&#xA;                                $(TargetDir)VSLangProj*.dll;&#xA;                                $(TargetDir)stdole.dll;&#xA;                                $(TargetDir)UIAutomation*.dll;&#xA;                                $(TargetDir)ReachFramework.dll;&#xA;                                $(TargetDir)System.Deployment.dll;&#xA;                                $(TargetDir)System.Printing.dll;&#xA;                                $(TargetDir)System.Windows.Input.Manipulations.dll;&#xA;                                $(TargetDir)System.Xaml.dll;&#xA;                                $(TargetDir)Microsoft.ReportViewer.WinForms.dll;&#xA;                                $(TargetDir)System.Data.DataSetExtensions.dll" />
-    </ItemGroup>
-    <PropertyGroup>
-      <AssembliesToMerge>@(MergeAssemblies->'"%(FullPath)"', ' ')</AssembliesToMerge>
-    </PropertyGroup>
-    <Message Text="ILMerge command: &quot;C:\Users\david\Projects\MetaComissions\packages\ILMerge.3.0.41\tools\net452\ILMerge.exe&quot; /out:&quot;$(MergedOutputFile)&quot; $(AssembliesToMerge) /targetplatform:v4,C:\Windows\Microsoft.NET\Framework\v4.0.30319 /log" Importance="high" />
-    <Exec Command="&quot;C:\Users\david\Projects\MetaComissions\packages\ILMerge.3.0.41\tools\net452\ILMerge.exe&quot; /out:&quot;$(MergedOutputFile)&quot; $(AssembliesToMerge) /targetplatform:v4,C:\Windows\Microsoft.NET\Framework\v4.0.30319 /log &gt; &quot;C:\ILMergeConsoleOutput.txt&quot; 2&gt;&amp;1" />
   </Target>
 </Project>
